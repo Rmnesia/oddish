@@ -89,7 +89,6 @@ class oddish(Ui_MainWindow):
     def __init__(self, Dialog):
         super().setupUi(Dialog)
         MainWindow = QtWidgets.QMainWindow()
-        MainWindow.setFixedSize(MainWindow.width(), MainWindow.height())
         self.proxyEditor.setPlainText(config.PROXY)
         self.steamCookie.setPlainText(SimpleCookie(config.STEAM_COOKIE).output(header = '', sep=';'))
         self.buffCookie.setPlainText(SimpleCookie(config.BUFF_COOKIE).output(header = '', sep=';'))

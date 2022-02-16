@@ -35,4 +35,4 @@ def sort_by_column(table, suggestion, column, ascending=True):
 
 
 def filter_table(table):
-    return [x for x in table if getattr(x, 'history_sold') >= config.MIN_SOLD_THRESHOLD]
+    return [x for x in table if getattr(x, 'sell_num') >= config.MIN_SOLD_THRESHOLD]

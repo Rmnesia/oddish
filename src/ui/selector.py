@@ -25,11 +25,10 @@ class selector(QtWidgets.QWidget):
         else:
             checkbox.setCheckState(QtCore.Qt.Unchecked)
         checkbox.stateChanged.connect(functools.partial(switch, categories[index]))
-        checkbox.setFixedHeight(40)
         iconf = QtCore.QFileInfo(":/csgo/" + categories[index] + ".svg");
         if iconf.exists():
             icon = QtSvg.QSvgWidget(":/csgo/" + categories[index] + ".svg")
-            icon.setFixedSize(icon.width() / 3, icon.height() / 3)
+            icon.setFixedSize(icon.width() / 2, icon.height() / 4)
             hbox.addWidget(icon)
         hbox.addWidget(checkbox)
         grid_layout.addLayout(hbox, i, j)
@@ -37,6 +36,7 @@ class selector(QtWidgets.QWidget):
     def __init__(self, parent = None):
         super(selector, self).__init__(parent)
         self.setWindowTitle("类型限定")
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         out.enabled = False
         categories = csgo_all_categories()
         self.cur_category = final_categories(categories)
@@ -45,7 +45,7 @@ class selector(QtWidgets.QWidget):
 
         grid_layout = QtWidgets.QGridLayout()
         scroll = QtWidgets.QScrollArea()
-        scroll.setMinimumSize(1000, 640)
+        scroll.setMinimumSize(1200, 640)
 
         rows = int(len(categories) / 2)
         for i in range(rows):

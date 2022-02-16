@@ -7,6 +7,15 @@
   <qresource prefix="csgo">
     <file>weapon_ak47.svg</file>
     <file>weapon_aug.svg</file>
+    <file>weapon_knife_survival_bowie.svg</file>
+    <file>weapon_knife_ursus.svg</file>
+    <file>weapon_knife_widowmaker.svg</file>
+    <file>weapon_knife_gypsy_jackknife.svg</file>
+    <file>weapon_knife_stiletto.svg</file>
+    <file>weapon_knife_css.svg</file>
+    <file>weapon_knife_canis.svg</file>
+    <file>weapon_knife_cord.svg</file>
+    <file>weapon_mp5sd.svg</file>
     <file>weapon_awp.svg</file>
     <file>weapon_bayonet.svg</file>
     <file>weapon_bizon.svg</file>
