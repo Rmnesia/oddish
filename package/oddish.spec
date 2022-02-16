@@ -18,7 +18,7 @@ os.system('cd ../src/ui/res/&&pyrcc5 res.qrc -o ../res_rc.py')
 a = Analysis(['../oddish.py'],
              pathex=[''],
              binaries=[],
-             datas=[('../config','config')],
+             datas=[('../config','config'),('qt.conf','.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],

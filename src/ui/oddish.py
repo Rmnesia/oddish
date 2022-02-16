@@ -61,31 +61,25 @@ class browserc(QtWidgets.QWidget):
         self.setLayout(layout)
 
     def set_title(self, title):
-        self.setWindowTitle(title)
+        self.setWindowTitle(title + "（登陆后请关闭此窗口）")
+    def cookie_set(self, demand, textbox, event):
+        textbox.setPlainText(SimpleCookie(demand).output(header = '', sep=';'))
     def get_cookie(self, url, demand, textbox):
         url = QtCore.QUrl(url)
         self.browser.load(url)
-        self.browser.page().profile().cookieStore().deleteAllCookies()
         def check_cookie(cookie):
             if cookie.domain() != url.host():
                 return 
-            for k in demand:
-                if k == cookie.name() and demand[k] == "":
-                    demand[k] = str(cookie.value(), 'utf-8')
-                    break
-            for k in demand:
-                if demand[k] == "":
-                    return
-            textbox.setPlainText(SimpleCookie(demand).output(header = '', sep=';'))
-            self.hide()
+            demand[str(cookie.name(), 'utf-8')] = str(cookie.value(), 'utf-8')
 
+        self.closeEvent = functools.partial(functools.partial(self.cookie_set, demand), textbox)
         self.browser.page().profile().cookieStore().cookieAdded.connect(check_cookie)
         self.browser.titleChanged.connect(self.set_title)
         self.showMaximized()
 
 class oddish(Ui_MainWindow):
-    steam_cookie = { 'sessionid': "" , 'steamLoginSecure': ""}
-    buff_cookie = { 'session': "", 'csrf_token': "", '_ntes_nnid': "", '_ntes_nuid': "", 'usertrack': "" }
+    steam_cookie = { 'sessionid': "", 'steamLoginSecure': "", "browserid": "", "steamCountry":""}
+    buff_cookie = { 'session': "" }
     def __init__(self, Dialog):
         super().setupUi(Dialog)
         MainWindow = QtWidgets.QMainWindow()
@@ -134,8 +128,8 @@ class oddish(Ui_MainWindow):
         self.proxy_check_t.start()
 
     def get_steam(self):
-        self.steam_cookie = { 'sessionid': "" , 'steamLoginSecure': ""}
-        self.browser.get_cookie('https://steamcommunity.com', self.steam_cookie, self.steamCookie)
+        self.steam_cookie = { 'sessionid': "", 'steamLoginSecure': "", "browserid": "", "steamCountry":""}
+        self.browser.get_cookie('https://steamcommunity.com/login/home/?goto=', self.steam_cookie, self.steamCookie)
         config.STEAM_COOKIE = self.steam_cookie
     def get_buff(self):
         self.buff_cookie = { 'session': "" }
